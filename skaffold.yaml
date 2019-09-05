@@ -2,6 +2,12 @@ apiVersion: skaffold/v1beta13
 kind: Config
 metadata:
   name: goland-expedition
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+    - image: marianferenc/golang_expedition
+      context: .
 deploy:
   helm:
     releases:
