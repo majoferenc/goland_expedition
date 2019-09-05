@@ -1,0 +1,9 @@
+apiVersion: skaffold/v1beta13
+kind: Config
+metadata:
+  name: goland-expedition
+deploy:
+  helm:
+    releases:
+      - name: goland-expedition
+        chartPath: charts/goland_expedition

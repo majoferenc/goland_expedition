@@ -19,6 +19,6 @@ USER builduser
 WORKDIR /
 COPY --from=build-env /awesomeProject/app /
 
-EXPOSE 8080
+EXPOSE 8091
 
 CMD ["/app"]

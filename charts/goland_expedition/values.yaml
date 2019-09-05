@@ -7,8 +7,8 @@ image:
 service:
   name: golang
   type: ClusterIP
-  externalPort: 80
-  internalPort: 8080
+  externalPort: 8091
+  internalPort: 8091
 resources:
   limits:
     cpu: 100m
