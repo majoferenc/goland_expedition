@@ -26,11 +26,19 @@ func main() {
 		Schema: &schema,
 		GraphiQL:true,
 	})
-	http.Handle("/graphql", handler)
+	http.Handle("/graphql", CorsMiddleware(handler))
 	log.Println("GraphQL API started at http://localhost:8091/graphql")
 	log.Fatal(http.ListenAndServe(":8091", nil))
 }
 
+func CorsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// allow cross domain AJAX requests
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+		next.ServeHTTP(w,r)
+	})
+}
 
 type DetectionMetadata struct {
 	Id          string `json:"id"`
