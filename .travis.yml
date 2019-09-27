@@ -14,6 +14,8 @@ env:
   - HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
   - YAMLLINT_VERSION=1.8.1
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+  - KEYFILE=secret.json.enc
+  - GCLOUD_PROJECT=atvi2-react
 
 install:
   # Installing Helm
@@ -26,7 +28,7 @@ install:
   - curl https://sdk.cloud.google.com | bash > /dev/null
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components install kubectl
-  - gcloud auth activate-service-account --key-file secret.json
+  - gcloud auth activate-service-account --key-file ${KEYFILE} --project ${GCLOUD_PROJECT}
   - gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project atvi2-react
   
 # Setup jobs per platform
