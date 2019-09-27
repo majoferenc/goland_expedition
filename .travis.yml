@@ -1,8 +1,6 @@
 sudo: required
 language: go
-cache:
-  directories:
-  - "$HOME/google-cloud-sdk/"
+
 branches:
   only:
   - master
