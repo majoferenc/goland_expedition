@@ -10,9 +10,39 @@ services:
 env:
   global:
   - DOCKER_REPO=marianferenc/goland_expedition:latest
-script:
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-- docker build -t $DOCKER_REPO .
-deploy:
-  provider: script
-  script: docker push $DOCKER_REPO
+  - HELM_URL=https://storage.googleapis.com/kubernetes-helm
+  - HELM_TGZ=helm-v2.4.1-linux-amd64.tar.gz
+  - YAMLLINT_VERSION=1.8.1
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+
+install:
+  # Installing Helm
+  - wget -q ${HELM_URL}/${HELM_TGZ}
+  - tar xzfv ${HELM_TGZ}
+  - PATH=`pwd`/linux-amd64/:$PATH
+  - helm init --client-only
+  # Installig pip deps
+  - sudo pip install yamllint=="${YAMLLINT_VERSION}"
+  - curl https://sdk.cloud.google.com | bash > /dev/null
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components install kubectl
+  
+jobs:
+  include:
+    - stage: unit tests
+      script: "Running unit tests..."
+    - stage: push docker image to dockerhub
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t $DOCKER_REPO .
+      - docker push $DOCKER_REPO
+   - stage: push docker image to dockerhub
+      script:
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+      - docker build -t $DOCKER_REPO .
+      - docker push $DOCKER_REPO
+   - stage: k8s
+      script:
+      - kubectl version
+      - helm version
+      
