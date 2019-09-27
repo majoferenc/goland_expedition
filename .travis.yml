@@ -17,7 +17,7 @@ env:
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - GCLOUD_PROJECT=atvi2-react
 before_install:
-- openssl aes-256-cbc -K $encrypted_862ee56e6377_key -iv $encrypted_862ee56e6377_iv -in gcloud.json.enc -out gcloud.json -d
+- openssl aes-256-cbc -K $encrypted_4e3e4fdb1ecb_key -iv $encrypted_4e3e4fdb1ecb_iv -in atvi2-react-ae8746f5e496.json.enc -out atvi2-react-ae8746f5e496.json -d
 install:
 - wget -q ${HELM_URL}/${HELM_TGZ}
 - tar xzfv ${HELM_TGZ}
@@ -27,7 +27,7 @@ install:
 - curl https://sdk.cloud.google.com | bash > /dev/null
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud components install kubectl
-- gcloud auth activate-service-account --key-file=secret.json
+- gcloud auth activate-service-account --key-file=atvi2-react-ae8746f5e496.json
 - gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a
   --project atvi2-react
 jobs:
