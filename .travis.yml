@@ -26,12 +26,11 @@ install:
   - curl https://sdk.cloud.google.com | bash > /dev/null
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components install kubectl
+  - gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project atvi2-react
   
 # Setup jobs per platform
 jobs:
   include:
-  - stage: unit tests
-    script: "Running unit tests..."
   - stage: push docker image to dockerhub
     script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
