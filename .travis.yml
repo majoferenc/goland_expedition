@@ -1,11 +1,11 @@
 sudo: required
 language: go
 
-DEPLOY_KEY:
-- openssl aes-256-cbc -K $encrypted_862ee56e6377_key -iv $encrypted_862ee56e6377_iv
-  -in secret.json.enc -out secret.json -d
-
-
+# Cache our Gcloud SDK between commands
+cache:
+  directories:
+  - "$HOME/google-cloud-sdk/"
+  
 branches:
   only:
   - master
@@ -20,7 +20,9 @@ env:
   - YAMLLINT_VERSION=1.8.1
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
   - GCLOUD_PROJECT=atvi2-react
-
+  
+before_install:
+  - openssl aes-256-cbc -K $encrypted_862ee56e6377_key -iv $encrypted_862ee56e6377_iv -in secret.json.enc -out secret.json -d
 install:
   # Installing Helm
   - wget -q ${HELM_URL}/${HELM_TGZ}
@@ -32,7 +34,7 @@ install:
   - curl https://sdk.cloud.google.com | bash > /dev/null
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components install kubectl
-  - gcloud auth activate-service-account --key-file=${DEPLOY_KEY} --project=${GCLOUD_PROJECT}
+  - gcloud auth activate-service-account --key-file=secret.json
   - gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a --project atvi2-react
   
 # Setup jobs per platform
