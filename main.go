@@ -28,10 +28,8 @@ func main() {
 	grpcSrv := grpc.NewServer()
 	proto.RegisterDetectionCRUDServer(grpcSrv, &grpcServer{})
 	reflection.Register(grpcSrv)
-
-	if e := grpcSrv.Serve(listener); e != nil {
-		panic(e)
-	}
+	go grpcSrv.Serve(listener)
+	log.Println("GRPC API started at :4040")
 
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
 		Query: graphql.NewObject(
@@ -48,7 +46,7 @@ func main() {
 		GraphiQL:true,
 	})
 	http.Handle("/graphql", CorsMiddleware(handler))
-	log.Println("GraphQL API started at http://localhost:8091/graphql")
+	log.Println("GraphQL API started at :8091/graphql")
 	log.Fatal(http.ListenAndServe(":8091", nil))
 }
 

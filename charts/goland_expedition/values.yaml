@@ -8,7 +8,7 @@ image:
   pullPolicy: Always
 service:
   name: golang
-  type: ClusterIP
+  type: NodePort
   externalPort: 8091
   internalPort: 8091
   externalPortGRPC: 4040
