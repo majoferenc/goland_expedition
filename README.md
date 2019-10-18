@@ -24,6 +24,19 @@ When you change something at *.proto files, they need to be recompiled to *.pb.g
 protoc --go_out=plugins=grpc:. *.prot
 ```
 
+### Test GRPC using GRPCUI
+
+Prerequisites:
+```sh
+go get github.com/fullstorydev/grpcui 
+go install github.com/fullstorydev/grpcui/cmd/grpcui
+```
+
+You can connect to your GRPC API via command:
+```sh
+ grpcui -plaintext localhost:4040
+```
+
 ### Deployment
 
 You can run Goland API automatic Docker image build and K8s Helm chart push after every source change with:

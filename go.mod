@@ -5,6 +5,7 @@ go 1.12
 require (
 	github.com/Bowery/prompt v0.0.0-20190419144237-972d0ceb96f5 // indirect
 	github.com/dchest/safefile v0.0.0-20151022103144-855e8d98f185 // indirect
+	github.com/fullstorydev/grpcui v0.2.1 // indirect
 	github.com/gin-contrib/sse v0.1.0
 	github.com/gin-gonic/gin v1.4.0
 	github.com/golang/protobuf v1.3.2
