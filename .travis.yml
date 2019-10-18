@@ -35,11 +35,6 @@ jobs:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t $DOCKER_REPO .
     - docker push $DOCKER_REPO
-  - stage: push docker image to dockerhub
-    script:
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker build -t $DOCKER_REPO .
-    - docker push $DOCKER_REPO
   - stage: k8s deploy
     script:
     - helm install --name goland charts/goland_expedition
