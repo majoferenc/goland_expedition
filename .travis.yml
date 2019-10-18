@@ -28,6 +28,9 @@ install:
 - gcloud auth activate-service-account --key-file=atvi2-react-ae8746f5e496.json
 - gcloud container clusters get-credentials standard-cluster-1 --zone us-central1-a
   --project atvi2-react
+- ./ibmcloud login --apikey $ibmcloudapikey -r eu-de
+- ./ibmcloud cf install -f
+- ./ibmcloud target --cf-api https://api.eu-de.bluemix.net -o Marian.Ferenc2@ibm.com -s dev
 jobs:
   include:
   - stage: push docker image to dockerhub
@@ -35,6 +38,5 @@ jobs:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker build -t $DOCKER_REPO .
     - docker push $DOCKER_REPO
-  - stage: k8s deploy
-    script:
     - helm install --name goland charts/goland_expedition
+    - ./ibmcloud cf push -f manifest.yml

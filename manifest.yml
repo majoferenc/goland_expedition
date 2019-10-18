@@ -1,0 +1,10 @@
+---
+applications:
+  - instances: 1
+    timeout: 180
+    name: login
+    buildpack: http://github.com/cloudfoundry/go-buildpack.git
+    command: awesomeProject
+    memory: 256MB
+    domain: eu-de.cf.appdomain.cloud
+    host: goland

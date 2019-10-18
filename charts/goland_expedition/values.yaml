@@ -5,12 +5,14 @@ replicaCount: 1
 image:
   repository: marianferenc/golang_expedition
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
 service:
   name: golang
   type: ClusterIP
   externalPort: 8091
   internalPort: 8091
+  externalPortGRPC: 4040
+  internalPortGRPC: 4040
 resources:
   limits:
     cpu: 100m
