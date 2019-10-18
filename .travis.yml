@@ -42,5 +42,4 @@ jobs:
     - docker push $DOCKER_REPO
   - stage: k8s deploy
     script:
-    - helm init
     - helm install --name goland charts/goland_expedition

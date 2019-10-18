@@ -1,17 +1,38 @@
 package main
 
 import (
+	"awesomeProject/proto"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/graphql-go/graphql"
 	gqlhandler "github.com/graphql-go/graphql-go-handler"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 	"io/ioutil"
 	"log"
+	"net"
 	"net/http"
 )
 
+type grpcServer struct {}
+
+
 func main() {
+
+	listener, err := net.Listen("tcp", ":4040")
+	if err != nil {
+		log.Fatalf("failed to listen at port tcp:4040, error: %v", err)
+	}
+	grpcSrv := grpc.NewServer()
+	proto.RegisterDetectionCRUDServer(grpcSrv, &grpcServer{})
+	reflection.Register(grpcSrv)
+
+	if e := grpcSrv.Serve(listener); e != nil {
+		panic(e)
+	}
+
 	schema, err := graphql.NewSchema(graphql.SchemaConfig{
 		Query: graphql.NewObject(
 			createQueryType(
@@ -90,6 +111,14 @@ func createDetectionType() *graphql.Object {
 	})
 }
 
+func (s *grpcServer) Get(ctx context.Context, request *proto.DetectionRequest) (*proto.DetectionResponse, error) {
+	detection, err := fetchDetectionFromElastic(int(request.GetId()))
+	if err != nil {
+		log.Fatalf("failed to fetch detection, error: %v", err)
+	}
+	protoDetection := proto.Detection{Id:detection.Id, XCoordinate:detection.XCoordinate,YCoordinate:detection.YCoordinate,BodyPart:detection.BodyPart,Timestamp:detection.Timestamp}
+	return &proto.DetectionResponse{Detection:&protoDetection},nil
+}
 
 func fetchDetectionFromElastic(id int) (*DetectionMetadata, error) {
 	resp, err := http.Get(fmt.Sprintf("http://localhost:9200/detection/stream/_search=id:%d", id))
