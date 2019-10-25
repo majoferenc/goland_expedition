@@ -20,5 +20,5 @@ spec:
       args:
         - "install"
         - "--name"
-        - "goland_expedition"
+        - "goland-expedition"
         - "/workspace/git-source/charts/goland_expedition"

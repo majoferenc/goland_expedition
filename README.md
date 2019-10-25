@@ -50,3 +50,28 @@ If you want also publish Docker image to your container registry you can use:
 ```sh
 draft up
 ```
+
+### Tekton deployment
+
+Tekton pipelines and Tekton dashboard can be installed  into your K8s cluster with command:
+
+```sh
+kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+kubectl create -f tekton/dashboard/config/release/grc-tekton-dashboard.yaml
+```
+
+### Connect to Tekton dashboard
+
+```sh
+kubectl port-forward svc/tekton-dashboard 9097:9097 --namespace=tekton-pipelines
+kubectl create -f tekton/dashboard/config/release/grc-tekton-dashboard.yaml
+```
+
+### App deployment
+
+```sh
+sh tekton/create.sh
+```
+
+
+
