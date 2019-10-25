@@ -23,11 +23,11 @@ spec:
         - "-i"
         - "-e"
         - "s;__IMAGE__;${inputs.params.imageUrl}:${inputs.params.imageTag};g"
-        - "/workspace/git-source/${inputs.params.pathToYamlFile}"
+        - "knative/goland-expedition.yaml"
     - name: run-kubectl
       image: lachlanevenson/k8s-kubectl
       command: ["kubectl"]
       args:
         - "apply"
         - "-f"
-        - "/workspace/git-source/${inputs.params.pathToYamlFile}"
+        - "knative/goland-expedition.yaml"

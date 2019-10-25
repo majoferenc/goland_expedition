@@ -28,4 +28,4 @@ spec:
       args:
         - --dockerfile=.
         - --destination=marianferenc/goland_expedition:latest
-        - --context=/workspace/git-source/${inputs.params.pathToContext}
+        - --context=knative/goland-expedition.yaml
