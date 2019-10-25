@@ -11,10 +11,8 @@ spec:
       resourceRef:
         name: goland-expedition-git
   params:
-    - name: pathToYamlFile
-      value: "knative/goland-expedition.yaml"
     - name: imageUrl
       value: "marianferenc/goland-expedition"
     - name: imageTag
       value: "latest"
-  serviceAccount: default
+  serviceAccount: pipeline-account

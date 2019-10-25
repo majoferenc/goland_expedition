@@ -1,0 +1,24 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Task
+metadata:
+  name: deploy-using-helm
+spec:
+  inputs:
+    resources:
+      - name: git-source
+        type: git
+    params:
+      - name: imageUrl
+        description: Url of image repository
+      - name: imageTag
+        description: Tag of the images to be used.
+        default: "latest"
+  steps:
+    - name: run-helm
+      image: lachlanevenson/k8s-helm
+      command: ["helm"]
+      args:
+        - "install"
+        - "--name"
+        - "goland_expedition"
+        - "/workspace/git-source/charts/goland_expedition"

@@ -26,7 +26,7 @@ spec:
       command:
         - /kaniko/executor
       args:
-        - --dockerfile=.
+        - --dockerfile=Dockerfile
         - --destination=marianferenc/goland_expedition:latest
-        - --context=knative/goland-expedition.yaml
-        - --cleanup
+        - --context=/workspace/git-source/
+        - --no-push
