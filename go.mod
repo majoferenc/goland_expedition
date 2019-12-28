@@ -13,7 +13,7 @@ require (
 	github.com/graphql-go/graphql v0.7.8
 	github.com/graphql-go/graphql-go-handler v0.2.3
 	github.com/kardianos/govendor v1.0.9 // indirect
-	github.com/mattn/go-isatty v0.0.9
+	github.com/mattn/go-isatty v0.0.11
 	github.com/pkg/errors v0.8.1 // indirect
 	golang.org/x/net v0.0.0-20191014212845-da9a3fd4c582 // indirect
 	golang.org/x/sys v0.0.0-20191018095205-727590c5006e // indirect
