@@ -10,7 +10,7 @@ require (
 	github.com/gin-gonic/gin v1.4.0
 	github.com/golang/protobuf v1.3.2
 	github.com/google/shlex v0.0.0-20181106134648-c34317bd91bf // indirect
-	github.com/graphql-go/graphql v0.7.8
+	github.com/graphql-go/graphql v0.7.9
 	github.com/graphql-go/graphql-go-handler v0.2.3
 	github.com/kardianos/govendor v1.0.9 // indirect
 	github.com/mattn/go-isatty v0.0.11
