@@ -7,7 +7,7 @@ require (
 	github.com/dchest/safefile v0.0.0-20151022103144-855e8d98f185 // indirect
 	github.com/fullstorydev/grpcui v0.2.1 // indirect
 	github.com/gin-contrib/sse v0.1.0
-	github.com/gin-gonic/gin v1.4.0
+	github.com/gin-gonic/gin v1.6.3
 	github.com/golang/protobuf v1.3.2
 	github.com/google/shlex v0.0.0-20181106134648-c34317bd91bf // indirect
 	github.com/graphql-go/graphql v0.7.8
